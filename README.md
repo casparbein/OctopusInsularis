@@ -67,7 +67,7 @@ Another approach to infer population structure I used is tess3R. Similar to well
 Here, genotype matrix (at each biallelic locus, a SNP can be translated into 0: homozygous for allelle 1, 1: heterozygous, 2: homozygous for allele 2) is factorized into a matrix Q of size n (number of individuals) x K (number of clusters), describing the assignment probability of any given individual i to cluster Kj, and another matrix G with size K x g (number of loci), describing the ancestral allele frequencies of gx in cluster Kj. Additionally, it uses the geographic location of sampled individuals as a prior for the assignment of individuals to clusters, and to perform a spatial interpolation that reflects the most likely assignment in unsampled areas.
 I used K=1 to K=11 (the number of populations), similar to the eigenvalues in the EMU-PCA to cover a broad range of possible clusters and used both the more permissive ("69inds_40MD") and more stringent ("64inds_20MD") datasets for inference.
 
-For more information on tess3R, see: https://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12471 . The program is implemented as an R package and the documentation can be found here:https://bcm-uga.github.io/TESS3_encho_sen/index.html .
+For more information on tess3R, see: https://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12471 . The program is implemented as an R package and the documentation can be found here: https://bcm-uga.github.io/TESS3_encho_sen/index.html .
 
 The R script that I used to perform the tess3R analysis is included in this repository.
 
