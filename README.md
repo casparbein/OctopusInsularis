@@ -107,10 +107,26 @@ A coaslescent based approach I used for tree reconstruction is SVDquartets (Sing
 Tetrad randomly chooses one SNP per locus for tree inference and bootstrapping. This approach maximizes the amount of SNPs used in the analysis, and bootstrapped trees hold additional information not visible in the primarily inferred tree. 
 I ran the SVDquartets analysis in tetrad for the "full", "69inds_40MD" and "64inds_20MD" datasets within a jupyter notebook, using 100 non-parametric bootstrap replicates for each dataset. 
 
-//The jupyter notebook can be found in this repository.
+The tetrad manual is available here: https://ipyrad.readthedocs.io/en/master/API-analysis/cookbook-tetrad.html, and the original publication can be found here: https://academic.oup.com/bioinformatics/article/30/23/3317/206559?login=false .
+
+// The jupyter notebook can be found in this repository.
 
 ### Population summary statistics
 
+I calculated Fit (individual inbreeding coefficient) and individual missingness for the "69inds_40MD" and "64inds_20MD" datasets with vcftools v.0.1.14 like this:
+-individual inbreeding coefficient:
+    `vcftools --vcf name.vcf --het --out name_full_het` 
+    
+-individual missingness:
+    `vcftools --vcf name.vcf --missing-indv --out name_miss`
+    
+In R, I tested if differences in Fit and pi SNP (calculated with DnaSP) of individuals belonging to different clusters (as defined by the population structure analyses) were significant with a BH-corrected pairwise t-test and created plots of Fit and pi SNP stratified by cluster assigment. I also performed a linear regression to test if missingness was significantly correlated to Fit and piSNP (result: p>0.05 in both cases).
+
+// Output files of Fit and missigness as well as the R script are included in this repository.
+
+### Demographic history
+
+TBC.
 
 
 
