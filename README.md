@@ -114,14 +114,11 @@ The tetrad manual is available here: https://ipyrad.readthedocs.io/en/master/API
 ### Population summary statistics
 
 I calculated Fit (individual inbreeding coefficient) and individual missingness for the "69inds_40MD" and "64inds_20MD" datasets with vcftools v.0.1.14 like this:
--individual inbreeding coefficient:
+- individual inbreeding coefficient:
+    `vcftools --vcf name.vcf --het --out name_full_het`     
+- individual missingness:
+    `vcftools --vcf name.vcf --missing-indv --out name_miss`   
 
-    `vcftools --vcf name.vcf --het --out name_full_het` 
-    
--individual missingness:
-
-    `vcftools --vcf name.vcf --missing-indv --out name_miss`
-    
 In R, I tested if differences in Fit and pi SNP (calculated with DnaSP) of individuals belonging to different clusters (as defined by the population structure analyses) were significant with a BH-corrected pairwise t-test and created plots of Fit and pi SNP stratified by cluster assigment. I also performed a linear regression to test if missingness was significantly correlated to Fit and piSNP (result: p>0.05 in both cases).
 
 // Output files of Fit and missigness as well as the R script are included in this repository.
