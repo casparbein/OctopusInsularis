@@ -14,7 +14,7 @@ I demulitplexed and assembled raw reads of 71 individuals that had been sequence
 In general, I followed the usual seven-steps approach: `ipyrad -p params-_90_69.txt -s 234567 -t 1 -c 20 -f`
 As run times for this assembly routinely exceeded 48 hours and I had to override unfinished assemblies, I used the `-f` and `-c 20` flags to assign 20 cores and force overrides. In the parameter file, I kept the default values for all but the sequence similarity threshold, `[clust_threshold]` (I tried 0.9 and 0.95) and the minimum number of individuals a locus had to be found in to be considered `[min_samples_locus]` to 4.
 
-One can find the parameters file for a 0.9 sequence similarity threshold and all summary statistics for both 0.9 and 0.95 sequence similarity threshold in this repository.
+One can find the parameters file for the 0.9 sequence similarity threshold and all summary statistics for both 0.9 and 0.95 sequence similarity thresholds (in this case including the individuals with an insufficient amount of reads) in this repository.
 
 ### Filtering for missing data
 
