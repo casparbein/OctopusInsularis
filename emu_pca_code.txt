@@ -1,0 +1,11 @@
+### EMU-PCA workflow
+### The following input vcf files were used: 69inds_40MD, 64inds_20MD
+### after conversion bed format with plink (3 files with the following extensions: .bed, .fam, .bim),
+### the following command was run for eigenvalues (-e) 2 to 11:
+
+python ../emu/emu.py -p 69inds_40MD -t 10 --iter 500 -o 69inds_40MD_2 -f 0.001 -e X
+
+### -p: input file prefix (all 3 bed files need to have the same prefix), -t: number of threads, --iter: number of iterations (if ommitted, EMU PCA runs until conversion)
+### -f minimum allele frequency filtering (the algorithm cannot handle pure singletons) 
+
+

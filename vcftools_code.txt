@@ -1,0 +1,104 @@
+## vcftools commands to filter raw vcf files (ipyrad output)
+## underneath each step, the number of retrieved loci and SNPs is listed 
+
+## plain file
+
+### 572,012 sites, about 299,304 homologous loci, a total of 27,116,182 sites in SNP matrix
+
+## filter for MD
+## allow 40 % missing data
+
+vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --out 69inds_40MD --recode
+
+### 99,915 sites
+### to check number of loci, use the following command (without recode): 34,455
+
+vcftools --vcf 69inds_40MD.recode.vcf --thin 1000 --out thinned 
+
+## filter out 5 individuals with most missing data
+
+vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --remove remove_inds --out 64inds_full --recode
+
+### no change
+
+## remove_inds looks like this (plain text):
+
+BA18
+OIC1
+RN13
+STH2
+RN2A
+
+##  allow 20 % missing data
+
+vcftools --vcf ../64inds_full/64inds_full.recode.vcf --max-missing 0.8 --out 64inds_20MD --recode
+
+### 72,816 sites
+### to check number of loci, use the following command (without recode): 25,702 loci 
+
+vcftools --vcf 64inds_20MD.recode.vcf --thin 1000 --out thinned:
+
+## filter for singletons, one SNP per locus and biallelic sites (not used in this study)
+## 40MD
+
+vcftools --vcf ../69inds_40MD/69inds_40MD.vcf --mac 3 --maf 0.01 --max-alleles 2 --min-alleles 2 --thin 1000 --out 69_inds_40MD_filt --recode
+
+### 23,257 sites and loci
+
+## 20MD
+
+vcftools --vcf ../64inds_20MD/64inds_20MD.vcf --mac 3 --maf 0.01 --max-alleles 2 --min-alleles 2 --thin 1000 --out 64_inds_20MD_filt --recode
+
+### 17,209 sites and loci
+
+
+### filtering for dadi-anaylsis
+### single-population anaylsis: 
+### Filter for 40% missing data within a SNP matrix with only relevant individuals included (5 individuals with highest amount of missing data removed)
+
+### N-Coastal
+
+vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_CEN --out CEN_str_full_06_thin --recode
+
+### 33 individuals, 33,944 sites
+
+### S-Coastal
+
+vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_ALBA --out ALBA_str_full_06_thin --recode
+
+### 12 Individuals, 35,135 sites
+
+### S-Oceanic
+
+vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_TM --out TM_str_full_06_thin --recode
+
+### 12 Individuals, 69,576 sites
+
+### two-population anaylsis: 
+### Filter for 40% missing data within a SNP matrix only containing relevant individuals from both populations (5 individuals with highest amount of missing data removed)
+
+### N-Coastal - S-Coastal
+
+vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_ALBA_CEN --out ALBACEN_str_full_06_thin --recode
+
+### 45 Individuals, 34,354 sites
+
+### S-Oceanic - S-Coastal
+
+vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_ALBA_TM --out TMALBA_str_full_06_thin --recode
+
+### 24 individuals, 51,629 sites
+
+
+
+
+
+
+
+
+
+
+
+
+
+
