@@ -96,7 +96,7 @@ To investigate maximum likelihood phylogenetic relationships, I used IQtree v.2.
 `/opt/bin/iqtree2 -s input.fa -m MFP -B 1000 -T AUTO -ntmax 8 --seqtype DNA -nm 1500 --runs 5 --seed 35681 `
 
 A comprehensive manual including all relevant publications of IQtree is available here: http://www.iqtree.org/.
-I plotted selected trees both with an arbitrary mid-point root and unrooted with ggtree in R. The extensive ggtree manual can be found here:https://yulab-smu.top/treedata-book/index.html, and the original publication here:https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628 .
+I plotted selected trees both with an arbitrary root (outgroup S-Coastal and S-Oceanic) and unrooted with ggtree in R. The extensive ggtree manual can be found here:https://yulab-smu.top/treedata-book/index.html, and the original publication here:https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628 .
 .
 
 // I include an extended plain text script of IQtree, an example output file from the 69inds_40MD run and the R script used to create the trees in the manuscript in this repository.
