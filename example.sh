@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --job-name=assembly_90_69_real
+#SBATCH --job-name=assembly_90_69
 #SBATCH --output=ipyrad_output_%j
 #SBATCH --error=ipyrad_err_%j
 #SBATCH --time=160:00:00
@@ -12,5 +12,4 @@
 #SBATCH --exclusive
 
 export PATH=/opt/miniconda3/bin/:$PATH
-#export PATH=/data/home/wolfproj/wolfproj-03/miniconda3/bin:$PATH
 ipyrad -p params-clean_90_69_real.txt -s 234567 -t 1 -c 20 -f
