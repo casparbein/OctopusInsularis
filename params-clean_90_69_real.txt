@@ -1,5 +1,5 @@
 ------- ipyrad params file (v.0.9.50)-------------------------------------------
-clean_90_69_real               ## [0] [assembly_name]: Assembly name. Used to name output directories for assembly steps
+clean_90_69               ## [0] [assembly_name]: Assembly name. Used to name output directories for assembly steps
 /data/home/wolfproj/wolfproj-03/final_data_analysis/ipyrad_assembly ## [1] [project_dir]: Project dir (made in curdir if not present)
                                ## [2] [raw_fastq_path]: Location of raw non-demultiplexed fastq files
                                ## [3] [barcodes_path]: Location of barcodes file
