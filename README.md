@@ -6,6 +6,8 @@ In this repository, I lay out the worflow I followed to analyse ddRADseq data fo
 
 Part of the analyses has been conducted on a remote machine via SLURM scripts. As these scripts are not universally applicable, I provide an example script to demonstrate its overall appearance and present the commands I used to run the analysis here.
 
+- relevant scripts in this repository: [example.sh](/example.sh/)
+
 
 ### ddRADseq assembly with iPyrad
 
@@ -15,7 +17,7 @@ In general, I followed the usual seven-steps approach: `ipyrad -p params-_90_69.
 
 As run times for this assembly routinely exceeded 48 hours and I had to override unfinished assemblies, I used the `-f` and `-c 20` flags to assign 20 cores and force overrides. In the parameter file, I kept the default values for all but the sequence similarity threshold, `[clust_threshold]` (I tried 0.9 and 0.95) and the minimum number of individuals a locus had to be found in to be considered `[min_samples_locus]` to 4.
 
-// One can find the parameters file for the 0.9 sequence similarity threshold and all summary statistics for both 0.9 and 0.95 sequence similarity thresholds (in this case including the individuals with an insufficient amount of reads) in this repository.
+- relevant scripts in this repository: [ipyrad](/ipyrad/)
 
 ### Filtering for missing data
 
@@ -36,7 +38,7 @@ After assembly, I used the .loci and .vcf output file formats for downstream ana
 
     `vcftools --vcf ../ipyrad_assembly/clean_90_69_outfiles/clean_90_69.vcf --max-missing 0.6 --thin 1000 --remove remove_necessary --out population_str_full_06_thin --recode`
 
-// A summary script of the vcftools filtering in plain text format can be found in this repository.
+- relevant scripts in this repository: [filtering](/filtering/)
 
 ### Population structure analysis
 
@@ -60,7 +62,7 @@ With EMU-PCA, to retrieve PC scores for all individuals depending on different n
 
 Since eigenvalues in the EMU-PCA can be interpreted as K clusters in any structuring algorithm, I tested eigenvalues from X=2 to X=11, which in turn will also embody the rank of the matrix that is used to impute missing values. The analysis failed if I did not filter out singletons, so I included the `-f` flag.
 
-// I include an example output file of an EMU-PCA run, as well as the python script with which I prepared .vcf files for plink, in this repository. 
+- relevant scripts in this repository: [EMU PCA](/EMU_PCA/)
 
 #### tess3R
 
@@ -70,7 +72,7 @@ I used K=1 to K=11 (the number of populations), similar to the eigenvalues in th
 
 For more information on tess3R, see: https://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12471 . The program is implemented as an R package and the documentation can be found here: https://bcm-uga.github.io/TESS3_encho_sen/index.html .
 
-// The R script that I used to perform the tess3R analysis is included in this repository.
+- relevant scripts in this repository: [tess3R](/tess3R/)
 
 #### fineRADstructure
 
@@ -85,7 +87,7 @@ Lastly, I computed a clustering tree:
 
 A manual of how to use fineRADstructure can be found here: https://www.milan-malinsky.org/fineradstructure and R scripts for plotting the results were retrieved from the developer's github page: https://github.com/millanek/fineRADstructure. The original publication can be read here: https://academic.oup.com/mbe/article/35/5/1284/4883220?login=false .
 
-// An commented plain text version of the comments presented here is included in this repository.
+- relevant scripts in this repository: [fineRADstructure](/fineRADstructure/)
 
 ### Phylogenetic analysis
 
@@ -99,7 +101,7 @@ A comprehensive manual including all relevant publications of IQtree is availabl
 I plotted selected trees both with an arbitrary root (outgroup S-Coastal and S-Oceanic) and unrooted with ggtree in R. The extensive ggtree manual can be found here:https://yulab-smu.top/treedata-book/index.html, and the original publication here:https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628 .
 .
 
-// I include an extended plain text script of IQtree, an example output file from the 69inds_40MD run and the R script used to create the trees in the manuscript in this repository.
+- relevant scripts in this repository: [IQtree](/IQtree/)
 
 #### SVDquartets / tetrad
 
@@ -109,7 +111,7 @@ I ran the SVDquartets analysis in tetrad for the "full", "69inds_40MD" and "64in
 
 The tetrad manual is available here: https://ipyrad.readthedocs.io/en/master/API-analysis/cookbook-tetrad.html, and the original publication can be found here: https://academic.oup.com/bioinformatics/article/30/23/3317/206559?login=false .
 
-// The jupyter notebook can be found in this repository.
+- relevant scripts in this repository: [tetrad](/tetrad/)
 
 ### Population summary statistics
 
@@ -121,9 +123,33 @@ I calculated Fit (individual inbreeding coefficient) and individual missingness 
 
 In R, I tested if differences in Fit and pi SNP (calculated with DnaSP) of individuals belonging to different clusters (as defined by the population structure analyses) were significant with a BH-corrected pairwise t-test and created plots of Fit and pi SNP stratified by cluster assigment. I also performed a linear regression to test if missingness was significantly correlated to Fit and piSNP (result: p>0.05 in both cases).
 
-// Output files of Fit and missigness as well as the R script are included in this repository.
+- relevant scripts in this repository: [population summary statistics](/pop_summary_statistics/)
 
 ### Demographic history
+
+I estimated past changes in effective population size for N-Coastal, S-Coastal and S-Oceanic and isolation/geneflow between N-Coastal/S-Coastal and S-Oceanic/S-Coastal with the program dadi. It uses a diffusion approximation approach to fit parameters of predefined models to the observed site frequency spectrum (SFS) by simulating a SFS and optimizing fit between simulated and observed SFS. Dadi does not work well with linked SNPs and large amounts of missing data, so perfiltering of the "full" vcf file was obligatory.
+To maximize to number of shared SNPs within a certain population by simultaneously minimizing SNP linkage, I created costumized vcf input files for each analysis using vcftools.
+
+Single population modelling:
+
+- N-Coastal: `vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_CEN --out CEN_str_full_06_thin --recode`
+
+- S-Coastal: `vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_ALBA --out ALBA_str_full_06_thin --recode`
+
+- S-Oceanic: `vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_TM --out TM_str_full_06_thin --recode`
+
+Two population modelling: 
+- N-Coastal/S-Coastal: `vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_ALBA_CEN --out ALBACEN_str_full_06_thin --recode`
+
+- S-Oceanic/S-Coastal: `vcftools --vcf ../ipyrad_assembly/clean_90_69_real_outfiles/name.vcf --max-missing 0.6 --thin 1000 --remove remove_all_but_ALBA_TM --out TMALBA_str_full_06_thin --recode`
+
+To retain as many loci as possible while removing as much missing data as possible, I down-projected all input vcf files. For this purpose, as well as for streamlining and automizing the model fitting process, I used Daniel Portik`s dadi pipeline. All models I included in the analysis are implemented in the dadi pipeline, too. For the two population modelling, I performed a goodness-of-fit test (also part of the dadi pipeline), where the program simulates an SFS based on the optimized parameters obtained from model fitting, and runs optimizations on this simulated SFS. If the previously fit model is a "good fit" to the data, the original log. likelihood value will be included in the distribution of log. likelihood values from fits to the simulated SFS.
+
+For more information on how to use dadi, please refer to the manual here: https://dadi.readthedocs.io/en/latest/ , and the original publication here: https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000695 . The dadi pipeline can be found on github:https: https://github.com/dportik/dadi_pipeline , and the original publication is available here: https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.14266 .
+
+- relevant scripts in this repository: [dadi](/dadi/)
+
+### References
 
 TBC.
 
