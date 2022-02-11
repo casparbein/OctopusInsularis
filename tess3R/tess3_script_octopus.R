@@ -60,7 +60,7 @@ View(perm_coordinates)
 
 ## plot the coordinates in a mock map to see if they are correct
 plot(perm_coordinates, pch = 19, cex = .5, 
-     xlab = "Longitude (°E)", ylab = "Latitude (°N)")
+     xlab = "Longitude (Â°E)", ylab = "Latitude (Â°N)")
 map(add = T, interior = F)
 
 ## create a tess3 object for perm:
