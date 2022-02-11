@@ -111,7 +111,7 @@ I ran the SVDquartets analysis in tetrad for the "full", "69inds_40MD" and "64in
 
 The tetrad manual is available here: https://ipyrad.readthedocs.io/en/master/API-analysis/cookbook-tetrad.html, and the original publication can be found here: https://academic.oup.com/bioinformatics/article/30/23/3317/206559?login=false .
 
-- relevant scripts in this repository: [tetrad](/tetrad/)
+- relevant scripts in this repository: [tetrad](/tetrad_analysis.ipynb)
 
 ### Population summary statistics
 
