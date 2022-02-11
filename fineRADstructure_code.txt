@@ -1,0 +1,20 @@
+## fineRADstructure commands to create a coancestry matrix and a clustered tree
+## We use the raw, 69ind_40MD and 64ind_20MD vcf files for this analysis
+
+## conversion of input vcf file to fineRADstructure format:
+
+/opt/miniconda3/bin/RADpainter hapsFromVCF name.vcf  ## important: output of the batch script or command has to be saved as name.finerad
+
+## Build Coancestry matrix, output: name_chunks.out
+
+/opt/miniconda3/bin/RADpainter name.finerad
+
+## Run MCMC step
+## -x : burn-in, -y:length of chain, -z: sampling step, output: name_mcmc.xml 
+
+/opt/miniconda3/bin/finestructure -x 100000 -y 1000000 -z 1000 name_chunks.out  name_mcmc.xml 
+
+## Create clustering tree
+## -m (method) T (tree), -x length of chain, input: name_chunks.out, name_mcmc.xml, output: name_TREEmcmc.xml
+
+/opt/miniconda3/bin/finestructure -m T -x 100000 name_chunks.out  name_mcmc.xml name_TREEmcmc.xml
