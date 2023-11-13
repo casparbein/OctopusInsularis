@@ -1,6 +1,9 @@
 # Oceanic currents and habitat breaks as drivers of the diversification of Octopus insularis
 
-In this repository, I lay out the worflow I followed to analyse ddRADseq data for the project "Oceanic currents and habitat breaks as drivers of the diversification of Octopus insularis" as specified in the Materials/Methods section of the manuscript. For each part of the analyes, I provide relevant scripts in this repository.
+In this repository, I lay out the worflow I followed to analyse ddRADseq data for the project "Population genomics of an Octopus species identify oceanographic barriers and inbreeding patterns" as specified in the Materials/Methods section of the manuscript. For each part of the analyis, I provide relevant scripts in this repository.
+The article is now published in Marine Biology:
+
+Bein, B., Lima, F. D., Lazzarotto, H., Rocha, L. A., Leite, T. S., Lima, S. M., & Pereira, R. J. (2023). Population genomics of an Octopus species identify oceanographic barriers and inbreeding patterns. Marine Biology, 170(12), 161. [https://doi.org/10.1007/s00227-023-04307-z](https://doi.org/10.1007/s00227-023-04307-z)
 
 ## Basic workflow
 
